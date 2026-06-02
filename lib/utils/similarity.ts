@@ -28,12 +28,14 @@ function filtrarStopwords(tokens: string[]): string[] {
  * Similitud Jaccard entre dos conjuntos de palabras
  */
 export function similitudJaccard(texto1: string, texto2: string): number {
-  const set1 = new Set(filtrarStopwords(tokenize(texto1)))
-  const set2 = new Set(filtrarStopwords(tokenize(texto2)))
-  const interseccion = new Set([...set1].filter(x => set2.has(x)))
-  const union = new Set([...set1, ...set2])
-  if (union.size === 0) return 0
-  return (interseccion.size / union.size) * 100
+  const arr1 = filtrarStopwords(tokenize(texto1))
+  const arr2 = filtrarStopwords(tokenize(texto2))
+  const set1 = new Set(arr1)
+  const set2 = new Set(arr2)
+  const interseccion = arr1.filter(x => set2.has(x))
+  const unionArr = arr1.concat(arr2.filter(x => !set1.has(x)))
+  if (unionArr.length === 0) return 0
+  return (interseccion.length / unionArr.length) * 100
 }
 
 /**
