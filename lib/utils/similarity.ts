@@ -1,3 +1,4 @@
+// v2
 function tokenize(text: string): string[] {
   return text
     .toLowerCase()
