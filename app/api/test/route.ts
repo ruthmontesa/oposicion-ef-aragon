@@ -69,44 +69,57 @@ export async function POST(request: NextRequest) {
     model: 'llama-3.3-70b-versatile',
     messages: [
       {
-        role: 'system',
-        content:
-          'Eres un preparador experto de oposiciones de educación física de Aragón. Responde ÚNICAMENTE con JSON válido y bien formado. Sin texto extra, sin markdown.',
-      },
-      {
         role: 'user',
-        content: `A partir del siguiente texto, genera 10 preguntas test de ALTA CALIDAD.
+        content: `Eres un preparador experto de oposiciones de educación física de Aragón.
+A partir del siguiente texto, genera 10 preguntas test de ALTA CALIDAD.
 
-REGLAS:
-- Usa SOLO la información del texto proporcionado
-- No inventes nada que no esté en el texto
-- Las preguntas deben ser específicas, no genéricas
-- Incluye conceptos exactos, artículos o ideas clave del texto
-- Evita preguntas obvias o triviales
-- Las opciones incorrectas deben ser plausibles y muy similares entre sí
+REGLAS OBLIGATORIAS:
+- Usa SOLO la información del texto proporcionado, nunca inventes nada
+- La respuesta correcta siempre debe estar redactada con palabras literales del texto
+- Las opciones incorrectas deben ser plausibles y muy similares a la correcta
+- Las preguntas deben ser específicas, nunca genéricas
+- Incluye conceptos exactos, cifras, autores, artículos o ideas clave del texto
+- Prohibido hacer preguntas que se puedan responder sin haber leído el texto
+- Mínimo el 60% de preguntas sobre conceptos específicos del texto
+- Las 4 opciones deben tener longitud y estructura similares
+- Se permite 'Todas las anteriores' máximo 2 veces: solo si A, B y C aparecen literalmente en el texto
+- Se permite 'Ninguna de las anteriores' máximo 2 veces: solo si A, B y C contradicen el texto
 
-TIPOS DE PREGUNTAS: definiciones precisas, conceptos clave, diferencias entre conceptos, aplicación básica
+TIPOS DE PREGUNTAS A INCLUIR:
+- Definiciones precisas extraídas literalmente del texto
+- Conceptos clave con sus matices exactos
+- Diferencias entre conceptos similares mencionados en el texto
+- Cifras, fechas, porcentajes o datos concretos del texto
+- Aplicación de conceptos explicados en el texto
 
-TEXTO:
-${textoCombinado.slice(0, 8000)}
-
-Devuelve ÚNICAMENTE este JSON:
+FORMATO DE RESPUESTA (JSON estricto):
 {
   "preguntas": [
     {
       "id": "q1",
-      "pregunta": "...",
+      "pregunta": "Pregunta específica y concreta",
       "opciones": ["A) ...", "B) ...", "C) ...", "D) ..."],
-      "respuesta_correcta": "A) ...",
-      "explicacion": "Explicación de por qué es correcta",
-      "fragmento_fuente": "Párrafo exacto del texto del que viene la pregunta"
+      "respuesta_correcta": "A) Cita literal exacta del texto",
+      "explicacion": "Esta es la respuesta correcta porque el texto dice literalmente: [cita exacta]",
+      "fragmento_fuente": "Párrafo o frase exacta del texto de donde viene la pregunta"
     }
   ]
-}`,
+}
+
+TEXTO A ANALIZAR:
+${textoCombinado.slice(0, 8000)}
+
+Ahora revisa cada pregunta generada y aplica estos filtros:
+1. ¿La respuesta correcta está copiada literalmente del texto? Si no, corrígela
+2. ¿Las opciones incorrectas son suficientemente similares a la correcta? Si no, hazlas más parecidas
+3. ¿La pregunta se puede responder sin leer el texto? Si sí, hazla más específica
+4. ¿El fragmento_fuente contiene exactamente la frase de donde viene la respuesta? Si no, corrígelo
+
+Devuelve únicamente el JSON final revisado, sin texto adicional.`,
       },
     ],
     temperature: 0.6,
-    max_tokens: 4000,
+    max_tokens: 3000,
     response_format: { type: 'json_object' },
   })
 
