@@ -1,32 +1,23 @@
-/**
- * Calcula la similitud entre dos textos usando TF-IDF y Jaccard
- * No requiere IA — funciona de forma local y gratuita
- */
-
 function tokenize(text: string): string[] {
   return text
     .toLowerCase()
     .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '') // quita tildes
+    .replace(/[\u0300-\u036f]/g, '')
     .replace(/[^a-z0-9\s]/g, ' ')
     .split(/\s+/)
-    .filter(w => w.length > 3) // ignora palabras cortas
+    .filter(w => w.length > 3)
 }
 
 const STOPWORDS = new Set([
   'para', 'como', 'este', 'esta', 'esto', 'desde', 'hasta', 'entre',
   'cuando', 'donde', 'aunque', 'pero', 'porque', 'sino', 'sobre',
   'todas', 'todos', 'cada', 'cual', 'cuya', 'cuyo', 'mediante',
-  'through', 'with', 'that', 'this', 'from', 'they', 'have', 'what',
 ])
 
 function filtrarStopwords(tokens: string[]): string[] {
   return tokens.filter(t => !STOPWORDS.has(t))
 }
 
-/**
- * Similitud Jaccard entre dos conjuntos de palabras
- */
 export function similitudJaccard(texto1: string, texto2: string): number {
   const arr1 = filtrarStopwords(tokenize(texto1))
   const arr2 = filtrarStopwords(tokenize(texto2))
@@ -38,10 +29,6 @@ export function similitudJaccard(texto1: string, texto2: string): number {
   return (interseccion.length / unionArr.length) * 100
 }
 
-/**
- * Cobertura: qué % de palabras clave del texto de referencia
- * aparecen en la respuesta del usuario
- */
 export function coberturaKeywords(
   respuestaUsuario: string,
   textoReferencia: string
@@ -49,13 +36,11 @@ export function coberturaKeywords(
   const palabrasRef = filtrarStopwords(tokenize(textoReferencia))
   const palabrasUser = new Set(filtrarStopwords(tokenize(respuestaUsuario)))
 
-  // Frecuencia de palabras en referencia (top keywords)
   const freq: Record<string, number> = {}
   for (const p of palabrasRef) {
     freq[p] = (freq[p] || 0) + 1
   }
 
-  // Top 30 keywords por frecuencia
   const keywords = Object.entries(freq)
     .sort((a, b) => b[1] - a[1])
     .slice(0, 30)
@@ -67,14 +52,10 @@ export function coberturaKeywords(
   return {
     porcentaje: keywords.length > 0 ? (encontradas.length / keywords.length) * 100 : 0,
     encontradas,
-    faltantes: faltantes.slice(0, 10), // top 10 faltantes
+    faltantes: faltantes.slice(0, 10),
   }
 }
 
-/**
- * Similitud combinada para casos prácticos:
- * 60% cobertura de keywords + 40% Jaccard
- */
 export function similitudCombinada(
   respuestaUsuario: string,
   respuestaModelo: string
