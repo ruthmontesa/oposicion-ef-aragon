@@ -1,8 +1,9 @@
+
 function tokenize(text: string): string[] {
   return text
     .toLowerCase()
     .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '')
+    .replace(/[\u0300-\u036f]/g, '')
     .replace(/[^a-z0-9\s]/g, ' ')
     .split(/\s+/)
     .filter(w => w.length > 3)
@@ -19,15 +20,24 @@ function filtrarStopwords(tokens: string[]): string[] {
 }
 
 export function similitudJaccard(texto1: string, texto2: string): number {
-  const arr1 = filtrarStopwords(tokenize(texto1))
-  const arr2 = filtrarStopwords(tokenize(texto2))
-  const set2 = new Set(arr2)
-  const set1 = new Set(arr1)
-  // Array.from evita spread de Set (compatible con cualquier target de TS)
-  const interseccion = Array.from(set1).filter(x => set2.has(x))
-  const union = Array.from(set1).concat(Array.from(set2).filter(x => !set1.has(x)))
-  if (union.length === 0) return 0
-  return (interseccion.length / union.length) * 100
+ 
+  const set1 = new Set<string>(filtrarStopwords(tokenize(texto1)))
+  const set2 = new Set<string>(filtrarStopwords(tokenize(texto2)))
+
+  const arr1 = Array.from(set1)
+  const arr2 = Array.from(set2)
+
+  const interseccion = new Set<string>(
+    arr1.filter(token => set2.has(token))
+  )
+
+  const union = new Set<string>(
+    arr1.concat(arr2)
+  )
+
+  if (union.size === 0) return 0
+
+  return (interseccion.size / union.size) * 100
 }
 
 export function coberturaKeywords(
@@ -39,7 +49,7 @@ export function coberturaKeywords(
 
   const freq: Record<string, number> = {}
   for (const p of palabrasRef) {
-    freq[p] = (freq[p] ?? 0) + 1
+    freq[p] = (freq[p] || 0) + 1
   }
 
   const keywords = Object.entries(freq)
