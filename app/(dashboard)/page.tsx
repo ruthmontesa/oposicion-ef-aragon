@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
-import { BookOpen, FileText, Mic, Layout } from 'lucide-react'
+import { BookOpen, FileText, Mic, Layout, ClipboardList } from 'lucide-react'
 import { createSupabaseServer } from '@/lib/supabase-server'
 import { TEMARIO_EF_ARAGON } from '@/content/temas/temario'
 
@@ -100,6 +100,28 @@ export default async function DashboardPage() {
           <p className="text-xs text-gray-400 mt-2">
             {temasEstudiados} de 25 temas con al menos una sesión completada
           </p>
+        </section>
+
+        {/* Modo Test */}
+        <section>
+          <Link
+            href="/test"
+            className="flex items-center gap-4 bg-amber-50 border-2 border-amber-200 rounded-2xl p-5 hover:bg-amber-100 hover:border-amber-300 transition group"
+          >
+            <div className="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-amber-200 transition">
+              <ClipboardList className="w-5 h-5 text-amber-700" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 flex-wrap">
+                <p className="text-sm font-bold text-amber-900">Estoy cansada... MODO TEST</p>
+    
+              </div>
+              <p className="text-xs text-amber-700 mt-0.5 leading-snug">
+                Preguntas tipo test de 4 opciones directamente de tus apuntes.
+              </p>
+            </div>
+            <span className="text-amber-400 text-base font-semibold flex-shrink-0">→</span>
+          </Link>
         </section>
 
         {/* Secciones */}
