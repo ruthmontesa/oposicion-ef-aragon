@@ -86,6 +86,28 @@ PENALIZACIONES (se aplican antes de cualquier otra valoración):
 - No menciona atención a la diversidad → penalizar COBERTURA (máximo 6)
 - No cita ninguna normativa → máximo 5 en NORMATIVA
 
+ESTÁNDAR DE EXIGENCIA:
+- Estás evaluando una plaza pública limitada. La mayoría de opositores
+  NO aprueba. Una respuesta "correcta pero genérica" es un 5, no un 7.
+- Un 7 requiere desarrollo propio, ejemplos concretos y aplicación real
+  al contexto aragonés.
+- Un 9 o 10 es excepcional: reservado para respuestas que un tribunal
+  recordaría positivamente. En un examen real, menos del 10% las alcanza.
+- El simple hecho de mencionar todos los apartados NO garantiza más de 6
+  si el desarrollo es superficial.
+- Comparar siempre con la RESPUESTA MODELO: si el opositor está
+  notablemente por debajo en profundidad → bajar al menos 2 puntos
+  respecto a lo que darías inicialmente.
+
+RESPUESTA MUY COMPLETA (cuando no aplica ninguna penalización):
+- Solo si cubre TODOS los apartados con desarrollo propio, cita normativa
+  correcta, incluye atención a la diversidad, aporta ejemplos concretos
+  y tiene estructura clara → mínimo 7,5 en cada criterio
+- Una respuesta completa pero sin ejemplos ni contextualización aragonesa
+  específica → máximo 7 en cualquier criterio
+- Reserva 8–10 para respuestas que superan claramente a la media y se
+  acercan a la respuesta modelo en profundidad
+
 ━━━ CONTEXTO ━━━
 
 ENUNCIADO:
