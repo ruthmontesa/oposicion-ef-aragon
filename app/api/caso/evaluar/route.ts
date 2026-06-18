@@ -86,14 +86,6 @@ PENALIZACIONES (se aplican antes de cualquier otra valoración):
 - No menciona atención a la diversidad → penalizar COBERTURA (máximo 6)
 - No cita ninguna normativa → máximo 5 en NORMATIVA
 
-RESPUESTA MUY COMPLETA (cuando no aplica ninguna penalización):
-- Si cubre TODOS los apartados, cita normativa correcta, incluye atención
-  a la diversidad y tiene estructura clara → mínimo 8,5 en cada criterio
-- Una respuesta completa y coherente NO puede bajar de 8 en ningún criterio
-  aunque no sea perfecta
-- Reserva puntuaciones por debajo de 5 SOLO para respuestas que ignoran
-  apartados enteros, no citan normativa o son incoherentes didácticamente
-
 ━━━ CONTEXTO ━━━
 
 ENUNCIADO:
